@@ -3,8 +3,7 @@ cask "reins" do
   version "0.2.6"
   sha256 "1dd029b756ab027f576dd0fabbbb403016f01d6d85eb32ceefe6c8848234906b"
 
-  url "https://github.com/katulevskiy/reins/releases/download/v#{version}/Reins-#{version}-macOS.dmg",
-      verified: "github.com/katulevskiy/reins/"
+  url "https://github.com/katulevskiy/reins/releases/download/v#{version}/Reins-#{version}-macOS.dmg"
   name "Reins"
   desc "Approve on your phone what your AI agents do with your accounts"
   homepage "https://reins2fa.com/"
@@ -15,18 +14,24 @@ cask "reins" do
   end
 
   auto_updates true
-  depends_on macos: ">= :monterey"
+  depends_on macos: :monterey
 
   app "Reins.app"
   binary "#{appdir}/Reins.app/Contents/MacOS/reins"
 
-  uninstall launchctl: "dev.reins.daemon",
+  uninstall launchctl: [
+              "com.reins2fa.desktop",
+              "dev.reins.daemon",
+            ],
             quit:      "com.reins2fa.desktop"
 
+  # Only what Reins writes: ~/.config/reins may hold the user's own files too, so it goes only once empty.
   zap trash: [
-    "~/.config/reins",
-    "~/.local/state/reins",
-    "~/Library/LaunchAgents/dev.reins.daemon.plist",
-    "~/Library/Logs/reins.log",
-  ]
+        "~/.config/reins/config.toml",
+        "~/.local/state/reins",
+        "~/Library/LaunchAgents/com.reins2fa.desktop.plist",
+        "~/Library/LaunchAgents/dev.reins.daemon.plist",
+        "~/Library/Logs/reins.log",
+      ],
+      rmdir: "~/.config/reins"
 end
