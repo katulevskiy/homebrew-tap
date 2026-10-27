@@ -1,7 +1,7 @@
 # Written by scripts/package/homebrew-cask.sh in katulevskiy/reins for each release; do not edit by hand.
 cask "reins" do
-  version "0.23.0"
-  sha256 "4b77e290a3fff09431014897ddea682e1ed15d1c5cb7cebefbf1a6fb25eef910"
+  version "0.24.0"
+  sha256 "4b6fa5a0ab7692b56938f571b8eb94985cc6da94cbffb8d8e09adfaba8cbcecc"
 
   url "https://github.com/katulevskiy/reins/releases/download/v#{version}/Reins-#{version}-macOS.dmg"
   name "Reins"
